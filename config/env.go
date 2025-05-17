@@ -28,7 +28,7 @@ func initConfig() Config {
 		PublicHost: getEnv("PUBLIC_HOST", "http://localhost"),
 		Port:       getEnv("PORT", "8080"),
 		DBUser:     getEnv("DB_USER", "golang"),
-		DBPassword: getEnv("DB_PASSWORD", "my...."),
+		DBPassword: getEnv("DB_PASSWORD", "m34"),
 		DBAddress:  fmt.Sprintf("%s:%s", getEnv("DB_HOST", "127.0.0.1"), getEnv("DB_PORT", "3306")),
 		DBName:     getEnv("DB_NAEM", "goapidb"),
 	}
