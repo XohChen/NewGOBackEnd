@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/XohChen/NewGOBackEnd/config"
 	"github.com/XohChen/NewGOBackEnd/service/user/auth"
 	"github.com/XohChen/NewGOBackEnd/types"
 	"github.com/XohChen/NewGOBackEnd/utils"
@@ -46,6 +47,15 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w, http.StatusBadRequest, fmt.Errorf("NOT FOUND, invalid email or password"))
 		return
 	}
+
+	secret := []byte(config.Envs.JWTSecret)
+	token, err := auth.CreateJWT(secret, u.ID)
+	if err != nil {
+		utils.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	utils.WriteJSON(w, http.StatusOK, map[string]string{"token": token})
 }
 
 func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
